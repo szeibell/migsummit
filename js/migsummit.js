@@ -23,8 +23,8 @@ const CONFIG = {
 };
 
 const COPY = {
-  ctaLabel: { open: "Quero participar", approval: "Quero participar", preregistration: "Quero receber novidades" },
-  formTitle: { open: "Inscrição", approval: "Solicitação de participação", preregistration: "Pré-cadastro" },
+  ctaLabel: { open: "Quero participar", approval: "Quero participar", preregistration: "Quero participar" },
+  formTitle: { open: "Inscreva-se no MIGSUMMIT", approval: "Inscreva-se no MIGSUMMIT", preregistration: "Inscreva-se no MIGSUMMIT" },
   success: {
     openEmail: { title: "Inscrição recebida.", text: "Confira seu e-mail para acompanhar as informações do MIGSUMMIT." },
     open: { title: "Inscrição recebida.", text: "Vamos usar o e-mail informado para enviar as próximas informações do MIGSUMMIT." },
@@ -84,7 +84,7 @@ $("#formTitle").textContent = COPY.formTitle[mode];
     ["date", dateTxt, "[DATA]"],
     ["time", timeTxt, "[HORÁRIO E FUSO]"],
     ["place", placeTxt, "[LOCAL OU PLATAFORMA]"]
-  ].filter(([, v]) => v || CONFIG.reviewMode);
+  ].filter(([, v]) => v);   // data, horário e local só aparecem quando confirmados
   if (!items.length) { ul.hidden = true; return; }
   ul.innerHTML = items.map(([k, v, ph]) => `<li>${icons[k]}${v ? esc(v) : pending(ph)}</li>`).join("");
   // no banner, só dados confirmados (sem marcadores sobre a arte)

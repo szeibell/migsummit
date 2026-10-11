@@ -338,6 +338,16 @@ a{ color:inherit; }
 .card__tag{ position:absolute; top:var(--space-6); right:var(--space-6); font-size:var(--text-body-xxs); font-weight:500; letter-spacing:var(--tracking-wider); text-transform:uppercase; color:rgba(255,255,255,.8); }
 .explore .card{ gap:var(--space-8); }
 @media (min-width:901px){ .explore .card{ min-height:12rem; justify-content:space-between; } }
+/* Objetivo em zigue-zague: cards empilhados à esquerda, título e texto à direita (desktop) */
+@media (min-width:901px){
+  .explore > .container{ display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); column-gap:var(--space-6); align-items:center; }
+  .explore__head{ grid-column:7 / -1; grid-row:1; max-width:none; margin:0; padding-left:clamp(0rem, 3vw, var(--space-12)); }
+  .explore__grid{ grid-column:1 / span 6; grid-row:1; grid-template-columns:1fr; gap:var(--space-4); }
+  .explore .card{ min-height:0; flex-direction:row; align-items:center; justify-content:flex-start; gap:var(--space-6); padding:var(--space-6) var(--space-8); }
+  .explore .card .ico{ flex:none; }
+  .explore .card.is-key{ padding-top:var(--space-10); padding-bottom:var(--space-8); }
+  .explore .card__tag{ top:var(--space-4); right:var(--space-6); }
+}
 
 /* mensagem central */
 .message__inner{ display:flex; flex-direction:column; gap:var(--space-8); max-width:68rem; }

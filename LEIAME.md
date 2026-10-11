@@ -27,6 +27,9 @@ Sem frameworks, sem build e sem dependências externas.
 | `privacyUrl`, `termsUrl`, `contactEmail` | Rodapé e aviso de privacidade do formulário. |
 | `speakers`, `agenda`, `faq` | As seções aparecem sozinhas quando houver conteúdo aprovado. |
 
+## Cache
+Os links de `css/migsummit.css` e `js/migsummit.js` no index.html levam `?v=...`. Mude esse número a cada atualização para que os navegadores baixem a versão nova.
+
 ## Antes de publicar
 1. `reviewMode: false`.
 2. Troque o título Lorem do banner (`h1` em index.html).

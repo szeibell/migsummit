@@ -257,7 +257,7 @@ a{ color:inherit; }
 
 /* --- explorar (benefícios) --- */
 .explore{ background:var(--color-neutral-100); }
-.explore__head{ display:flex; flex-direction:column; gap:var(--space-4); max-width:46rem; margin-bottom:var(--space-12); }
+.explore__head{ display:flex; flex-direction:column; gap:var(--space-5); max-width:46rem; margin-bottom:var(--space-12); }
 .explore__grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--space-6); }
 .explore .card{ background:var(--color-white); padding:var(--space-8); gap:var(--space-5); }
 .explore .card:hover{ border-color:var(--accent); box-shadow:var(--shadow-md); transform:translateY(-4px); }
@@ -335,18 +335,26 @@ a{ color:inherit; }
 .explore .card.is-key{ background:linear-gradient(140deg, var(--color-violet-700), var(--color-purple-700) 60%, var(--color-blue-700)); border-color:transparent; color:var(--color-white); }
 .explore .card.is-key .card__title{ color:var(--color-white); }
 .explore .card.is-key .ico{ background:rgba(255,255,255,.16); color:var(--color-white); }
-.card__tag{ position:absolute; top:var(--space-6); right:var(--space-6); font-size:var(--text-body-xxs); font-weight:500; letter-spacing:var(--tracking-wider); text-transform:uppercase; color:rgba(255,255,255,.8); }
+.card__tag{ position:absolute; top:var(--space-5); left:var(--space-8); font-size:var(--text-body-xxs); font-weight:500; letter-spacing:var(--tracking-wider); text-transform:uppercase; color:rgba(255,255,255,.8); }
 .explore .card{ gap:var(--space-8); }
-@media (min-width:901px){ .explore .card{ min-height:12rem; justify-content:space-between; } }
+
 /* Objetivo em zigue-zague: cards empilhados à esquerda, título e texto à direita (desktop) */
 @media (min-width:901px){
   .explore > .container{ display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); column-gap:var(--space-6); align-items:center; }
   .explore__head{ grid-column:7 / -1; grid-row:1; max-width:none; margin:0; padding-left:clamp(0rem, 3vw, var(--space-12)); }
   .explore__grid{ grid-column:1 / span 6; grid-row:1; grid-template-columns:1fr; gap:var(--space-4); }
-  .explore .card{ min-height:0; flex-direction:row; align-items:center; justify-content:flex-start; gap:var(--space-6); padding:var(--space-6) var(--space-8); }
-  .explore .card .ico{ flex:none; }
-  .explore .card.is-key{ padding-top:var(--space-10); padding-bottom:var(--space-8); }
-  .explore .card__tag{ top:var(--space-4); right:var(--space-6); }
+  .explore .card{ padding:var(--space-6) var(--space-8); gap:var(--space-6); }
+  .explore .card.is-key{ padding-top:var(--space-12); padding-bottom:var(--space-8); }
+  .explore .card__tag{ top:var(--space-5); left:var(--space-8); }
+}
+/* cards do Objetivo: ícone ao lado do título em todas as larguras */
+.explore .card{ min-height:0; flex-direction:row; align-items:center; justify-content:flex-start; }
+.explore .card .ico{ flex:none; }
+@media (max-width:900px){
+  .explore .card{ padding:var(--space-5) var(--space-5); gap:var(--space-4); }
+  .explore .card.is-key{ padding-top:var(--space-10); }
+  .explore .card__tag{ top:var(--space-4); left:var(--space-5); }
+  .explore__grid{ gap:var(--space-3); }
 }
 
 /* mensagem central */
@@ -371,7 +379,7 @@ a{ color:inherit; }
 .shift-to{ background:linear-gradient(100deg, var(--color-violet-600), var(--color-purple) 55%, var(--color-blue-700)); -webkit-background-clip:text; background-clip:text; color:transparent; }
 
 .section-cta{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:var(--space-6); margin-top:var(--space-10); padding:var(--space-6) var(--space-6) var(--space-6) var(--space-8); border:1px solid var(--border); border-radius:var(--radius-full); background:rgba(255,255,255,.04); }
-.section-cta p{ color:var(--text); font-size:var(--text-body); max-width:46ch; }
+.section-cta p{ color:var(--text); font-size:var(--text-body); max-width:64ch; }
 @media (max-width:620px){ .section-cta{ border-radius:var(--radius-2xl); padding:var(--space-6); } .section-cta .btn-pill{ width:100%; } }
 .message__cta{ padding-left:clamp(var(--space-6), 4vw, var(--space-12)); }
 
@@ -443,3 +451,5 @@ a{ color:inherit; }
 @keyframes rise{ from{ opacity:0; transform:translateY(14px); } }
 @keyframes settle{ from{ transform:scale(1.04); } }
 @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
+
+@media (min-width:901px){ .about__body{ padding-top:2.6rem; } }

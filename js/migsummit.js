@@ -4,7 +4,7 @@
    automaticamente quando não há conteúdo aprovado.
    ===================================================================== */
 const CONFIG = {
-  reviewMode: true,              // false em produção: remove barra e marcadores de pendência
+  reviewMode: true,              // true (prévia): mostra Lorem ipsum onde faltam dados. false (produção): esconde o que não estiver preenchido
   eventDate: null,               // ex.: "2026-11-25"  (exibido como "25 de novembro de 2026")
   eventTime: null,               // ex.: "9h às 13h"
   timezone: null,                // ex.: "horário de Brasília"
@@ -52,13 +52,19 @@ const attribution = (() => {
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-const pending = label => `<span class="pending">${esc(label)}</span>`;
+const LOREM = {
+  "[DATA]": "Lorem ipsum dolor",
+  "[HORÁRIO E FUSO]": "Sit amet, consectetur",
+  "[LOCAL OU PLATAFORMA]": "Adipiscing elit",
+  footer: "Lorem ipsum dolor sit amet",
+  privacy: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+};
+const pending = key => `<span class="ph">${esc(LOREM[key] || "Lorem ipsum")}</span>`;
 
 /* ---------- fase do evento: rótulos dos CTAs ---------- */
 const mode = COPY.ctaLabel[CONFIG.registrationMode] ? CONFIG.registrationMode : "open";
 $$("[data-cta-label]").forEach(el => el.textContent = COPY.ctaLabel[mode]);
 $("#formTitle").textContent = COPY.formTitle[mode];
-if (CONFIG.reviewMode) $("#reviewBar").hidden = false;
 
 /* ---------- dados do evento no hero ---------- */
 (function renderMeta(){
@@ -136,14 +142,14 @@ if (CONFIG.reviewMode) $("#reviewBar").hidden = false;
   if (CONFIG.privacyUrl) links.push(`<a href="${esc(CONFIG.privacyUrl)}">Política de privacidade</a>`);
   if (CONFIG.termsUrl) links.push(`<a href="${esc(CONFIG.termsUrl)}">Condições de participação</a>`);
   if (CONFIG.contactEmail) links.push(`<span>Contato: <a href="mailto:${esc(CONFIG.contactEmail)}">${esc(CONFIG.contactEmail)}</a></span>`);
-  if (!links.length && CONFIG.reviewMode) links.push(pending("Contato oficial, privacidade e condições a confirmar"));
+  if (!links.length && CONFIG.reviewMode) links.push(pending("footer"));
   $("#footerLinks").innerHTML = links.join("");
 
   const note = $("#privacyNote");
   if (CONFIG.privacyUrl) {
     note.innerHTML = `Usaremos seus dados para a gestão da sua participação no MIGSUMMIT, conforme a <a href="${esc(CONFIG.privacyUrl)}">Política de Privacidade</a>.`;
   } else if (CONFIG.reviewMode) {
-    note.innerHTML = pending("Texto sobre uso dos dados e link da política de privacidade a confirmar");
+    note.innerHTML = pending("privacy");
   } else { note.hidden = true; }
   $("#year").textContent = new Date().getFullYear();
 })();
@@ -167,7 +173,6 @@ $$("[data-cta]").forEach(a => a.addEventListener("click", () => track("cta_click
 /* ---------- formulário ---------- */
 const form = $("#signupForm"), submitBtn = $("#submitBtn"), statusBox = $("#formStatus");
 const isDemo = !CONFIG.registrationEndpoint;
-if (isDemo) $("#demoNotice").hidden = false;
 
 const rules = {
   nome:   v => v.trim().length >= 3 && /\s/.test(v.trim()) ? "" : "Informe seu nome e sobrenome.",
@@ -213,7 +218,7 @@ form.addEventListener("submit", async e => {
   if (!ok) { const first = names.find(n => form.elements[n].closest(".field").classList.contains("has-error")); form.elements[first].focus(); return; }
 
   if (isDemo) {
-    showStatus("demo", "Modo demonstração: nada foi enviado.", "Os dados passaram na validação. Conecte o endpoint de inscrição em CONFIG.registrationEndpoint para ativar o envio real.");
+    showStatus("info", "Envio desativado nesta prévia.", "Os dados foram validados, mas nada foi enviado. O formulário será conectado na versão final.");
     return;                                          // sem confirmação fictícia
   }
 

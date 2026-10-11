@@ -1,6 +1,7 @@
 # MIGSUMMIT – Landing Page (pacote HTML)
 
 ## Como abrir
+- **Prévia online:** https://szeibell.github.io/migsummit/
 - **Para ver:** dê dois cliques em `index.html`. Funciona offline em qualquer navegador.
 - **Para publicar:** suba a pasta inteira, mantendo a estrutura, em qualquer servidor ou hospedagem estática (HubSpot File Manager, Netlify, Vercel, S3, etc.).
 
@@ -17,7 +18,7 @@ Sem frameworks, sem build e sem dependências externas.
 ## Configuração (início de js/migsummit.js)
 | Campo | Uso |
 |---|---|
-| `reviewMode` | `true` mostra a faixa de revisão e os marcadores de pendência. Use `false` em produção. |
+| `reviewMode` | `true` (prévia) mostra Lorem ipsum onde faltam dados. `false` (produção) esconde o que não estiver preenchido. |
 | `eventDate`, `eventTime`, `timezone`, `venue`, `eventFormat` | Dados do evento. Aparecem no banner e na inscrição quando preenchidos. |
 | `calendar.start` / `calendar.end` | Datas ISO. Ativam "Adicionar à agenda" e o schema Event para o Google. |
 | `registrationMode` | `"open"`, `"approval"` ou `"preregistration"`. Muda os botões e as mensagens. |

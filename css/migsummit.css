@@ -246,8 +246,7 @@ a{ color:inherit; }
 }
 /* mobile/tablet: texto antes da imagem na Mensagem central */
 @media (max-width:900px){
-  .message__visual{ order:2; margin-top:calc(-1 * var(--space-4)); }
-  .message__visual img{ max-width:17rem; }
+  .message__visual{ order:2; margin-top:var(--space-4); }
 }
 
 /* --- sobre --- */
@@ -392,18 +391,18 @@ a{ color:inherit; }
 }
 
 
+.message{ padding-bottom:0; overflow:hidden; }
 .message__grid{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:var(--space-8) clamp(var(--space-8), 6vw, var(--space-20)); align-items:center; }
-.message__inner{ max-width:none; }
-.message__visual{ margin:0; display:flex; justify-content:center; }
-.message__visual img{ width:100%; max-width:30rem; height:auto; mix-blend-mode:multiply; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent), linear-gradient(to bottom, #000 90%, transparent); -webkit-mask-composite:source-in; mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent), linear-gradient(to bottom, #000 90%, transparent); mask-composite:intersect; }
-@supports (animation-timeline: view()){
-  @media (prefers-reduced-motion:no-preference){
-    .message__visual img{ animation:liftoff linear both; animation-timeline:view(); animation-range:cover 0% cover 100%; }
-    @keyframes liftoff{ from{ transform:translateY(8%); } to{ transform:translateY(-8%); } }
-  }
-}
+.message__inner{ max-width:none; padding-bottom:var(--section-gap); }
+/* foguete parado, com a fumaça cortada pela borda inferior da seção */
+.message__visual{ margin:0; display:flex; justify-content:center; align-self:end; }
+.message__visual img{ display:block; width:100%; max-width:32rem; height:auto; mix-blend-mode:multiply; -webkit-mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
 .message__quote p{ font-size:clamp(1.75rem, 3vw, 2.875rem); }
-@media (max-width:900px){ .message__grid{ grid-template-columns:1fr; } .message__visual img{ max-width:20rem; } }
+@media (max-width:900px){
+  .message__grid{ grid-template-columns:1fr; }
+  .message__inner{ padding-bottom:0; }
+  .message__visual img{ max-width:22rem; }
+}
 
 /* --- faq --- */
 .faq__grid{ display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:var(--space-8) var(--space-6); }

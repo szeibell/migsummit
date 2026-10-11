@@ -392,16 +392,16 @@ a{ color:inherit; }
 
 
 .message{ padding-bottom:0; overflow:hidden; }
-.message__grid{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:var(--space-8) clamp(var(--space-8), 6vw, var(--space-20)); align-items:center; }
+.message__grid{ display:grid; grid-template-columns:minmax(0,6fr) minmax(0,6fr); gap:var(--space-8) clamp(var(--space-8), 6vw, var(--space-20)); align-items:center; }
 .message__inner{ max-width:none; padding-bottom:var(--section-gap); }
 /* foguete parado, com a fumaça cortada pela borda inferior da seção */
 .message__visual{ margin:0; display:flex; justify-content:center; align-self:end; }
-.message__visual img{ display:block; width:100%; max-width:32rem; height:auto; mix-blend-mode:multiply; -webkit-mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+.message__visual img{ display:block; width:min(125%, 52rem); max-width:none; flex:none; height:auto; mix-blend-mode:multiply; -webkit-mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
 .message__quote p{ font-size:clamp(1.75rem, 3vw, 2.875rem); }
 @media (max-width:900px){
   .message__grid{ grid-template-columns:1fr; }
   .message__inner{ padding-bottom:0; }
-  .message__visual img{ max-width:22rem; }
+  .message__visual img{ width:100%; max-width:22rem; }
 }
 
 /* --- faq --- */

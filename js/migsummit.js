@@ -69,6 +69,7 @@ $("#formTitle").textContent = COPY.formTitle[mode];
 /* ---------- dados do evento no hero ---------- */
 (function renderMeta(){
   const ul = $("#eventMeta");
+  if (!ul) return;
   const icons = {
     date: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
     time: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
@@ -297,8 +298,8 @@ if (matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").mat
     + "&details=" + encodeURIComponent(location.origin + location.pathname);
   const li = document.createElement("li");
   li.innerHTML = `<a class="btn-text" href="${url}" target="_blank" rel="noopener" data-cta="calendar">Adicionar à agenda</a>`;
-  $("#eventMeta").appendChild(li);
-  li.querySelector("a").addEventListener("click", () => track("cta_click", { cta_location: "calendar" }));
+  $("#calSlot").appendChild(li.firstElementChild);
+  $("#calSlot a").addEventListener("click", () => track("cta_click", { cta_location: "calendar" }));
   if (CONFIG.reviewMode) return;
   const ld = { "@context":"https://schema.org", "@type":"Event", name:"MIGSummit", startDate:c.start, endDate:c.end,
     eventAttendanceMode: CONFIG.eventFormat === "online" ? "https://schema.org/OnlineEventAttendanceMode" : CONFIG.eventFormat === "híbrido" ? "https://schema.org/MixedEventAttendanceMode" : "https://schema.org/OfflineEventAttendanceMode",

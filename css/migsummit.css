@@ -492,3 +492,30 @@ a{ color:inherit; }
 @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
 
 @media (min-width:901px){ .about__body{ padding-top:2.6rem; } }
+
+/* --- inscrição no topo: formulário sobe sobre a borda inferior esquerda do KV --- */
+.signup-top{ position:relative; padding-bottom:var(--section-gap); }
+.signup-top__grid{ display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); column-gap:var(--space-6); row-gap:var(--space-10); align-items:start; }
+.signup-top .panel{ position:relative; z-index:2; grid-column:1 / span 5; grid-row:1; border:1px solid var(--border); }
+.signup-top__info{ grid-column:7 / -1; grid-row:1; display:flex; flex-direction:column; gap:var(--space-6); padding-top:var(--space-12); }
+.signup-top__title{ font-family:var(--font-display); font-weight:400; font-size:clamp(2.25rem, 4.2vw, 3.75rem); line-height:var(--leading-display); letter-spacing:var(--tracking-display); color:var(--text); text-wrap:balance; margin:0; }
+.signup-top .lead{ max-width:46ch; }
+.signup-top .eventbar__facts{ padding-top:var(--space-6); border-top:1px solid var(--border); }
+.signup-top__count{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:var(--space-4) var(--space-6); padding:var(--space-5) var(--space-6); border-radius:var(--radius-2xl); background:var(--color-neutral-100); }
+.signup-top .eventbar__count{ margin:0; padding:0; border:0; }
+@media (min-width:1024px){
+  .signup-top .panel{ margin-top:calc(-1 * clamp(7rem, 11vw, 11rem)); }
+}
+@media (max-width:1023px){
+  .signup-top{ padding-top:var(--space-12); }
+  .signup-top__grid{ grid-template-columns:1fr; }
+  .signup-top__info{ grid-column:1; grid-row:1; padding-top:0; }
+  .signup-top .panel{ grid-column:1; grid-row:2; }
+}
+.navbar__links a{ white-space:nowrap; }
+@media (max-width:1199px){ .navbar__by{ display:none; } }
+/* celular/tablet: o parágrafo repete o texto do banner; sai para o formulário ficar mais perto do topo */
+@media (max-width:1023px){
+  .signup-top .lead{ display:none; }
+  .signup-top__info{ gap:var(--space-5); }
+}

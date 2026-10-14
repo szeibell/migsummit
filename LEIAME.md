@@ -1,4 +1,4 @@
-# MIGSUMMIT – Landing Page (pacote HTML)
+# MIGSummit – Landing Page (pacote HTML)
 
 ## Como abrir
 - **Prévia online:** https://szeibell.github.io/migsummit/
@@ -41,10 +41,9 @@ Os links de `css/migsummit.css` e `js/migsummit.js` no index.html levam `?v=...`
 Cole o conteúdo de index.html num template de página do Design Manager e inclua `{{ standard_header_includes }}` antes de `</head>` e `{{ standard_footer_includes }}` antes de `</body>`. Suba css, js, fontes e imagens no File Manager e atualize os caminhos. Para o formulário, use a Forms API v3 (`https://api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`), mapeando para `firstname`/`lastname`, `email`, `company` e `jobtitle`.
 
 ## Pendências do cliente
-- Data, horário, fuso, formato e local ou plataforma.
+- Local ou plataforma e formato (data 11/11/2026, 14h às 18h, já configurada; horário considerado de Brasília).
 - Modo de inscrição e destino do formulário (CRM).
 - Política de privacidade, condições e contato oficial.
-- Palestrantes e programação.
-- Título definitivo do banner.
-- Logos MIGSUMMIT e MIGNOW em vetor (os atuais foram extraídos do KV).
+- Palestrantes (hoje o bloco mostra "Palestrantes em breve") e programação.
+- Logos MIGSummit e MIGNOW em vetor (os atuais foram extraídos do KV).
 - Domínio, analytics e favicon.

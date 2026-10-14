@@ -5,8 +5,8 @@
    ===================================================================== */
 const CONFIG = {
   reviewMode: true,              // true (prévia): mostra Lorem ipsum onde faltam dados. false (produção): esconde o que não estiver preenchido
-  eventDate: null,               // ex.: "2026-11-25"  (exibido como "25 de novembro de 2026")
-  eventTime: null,               // ex.: "9h às 13h"
+  eventDate: "2026-11-11",       // exibido como "11 de novembro de 2026"
+  eventTime: "14h às 18h",
   timezone: null,                // ex.: "horário de Brasília"
   venue: null,                   // ex.: "São Paulo, SP" ou nome da plataforma
   eventFormat: null,             // "presencial" | "online" | "híbrido"
@@ -19,17 +19,17 @@ const CONFIG = {
   speakers: [],                  // { name, role, organization, topic, photo, photoAlt }
   agenda: [],                    // { time, title, format, participants }
   faq: [],                      // { q, a }  somente respostas confirmadas
-  calendar: null                 // { start: "2026-11-25T09:00:00-03:00", end: "2026-11-25T13:00:00-03:00" } ativa "Adicionar à agenda" e o schema Event
+  calendar: { start: "2026-11-11T14:00:00-03:00", end: "2026-11-11T18:00:00-03:00" }  // horário de Brasília; ativa contagem regressiva, "Adicionar à agenda" e o schema Event
 };
 
 const COPY = {
   ctaLabel: { open: "Quero participar", approval: "Quero participar", preregistration: "Quero participar" },
-  formTitle: { open: "Inscreva-se no MIGSUMMIT", approval: "Inscreva-se no MIGSUMMIT", preregistration: "Inscreva-se no MIGSUMMIT" },
+  formTitle: { open: "Inscreva-se no MIGSummit", approval: "Inscreva-se no MIGSummit", preregistration: "Inscreva-se no MIGSummit" },
   success: {
-    openEmail: { title: "Inscrição recebida.", text: "Confira seu e-mail para acompanhar as informações do MIGSUMMIT." },
-    open: { title: "Inscrição recebida.", text: "Vamos usar o e-mail informado para enviar as próximas informações do MIGSUMMIT." },
+    openEmail: { title: "Inscrição recebida.", text: "Confira seu e-mail para acompanhar as informações do MIGSummit." },
+    open: { title: "Inscrição recebida.", text: "Vamos usar o e-mail informado para enviar as próximas informações do MIGSummit." },
     approval: { title: "Recebemos sua solicitação.", text: "Acompanhe o retorno pelo canal informado." },
-    preregistration: { title: "Cadastro recebido.", text: "Você vai receber as novidades do MIGSUMMIT no e-mail informado." }
+    preregistration: { title: "Cadastro recebido.", text: "Você vai receber as novidades do MIGSummit no e-mail informado." }
   }
 };
 
@@ -88,8 +88,6 @@ $("#formTitle").textContent = COPY.formTitle[mode];
   if (!items.length) { ul.hidden = true; return; }
   ul.innerHTML = items.map(([k, v, ph]) => `<li>${icons[k]}${v ? esc(v) : pending(ph)}</li>`).join("");
   // no banner, só dados confirmados (sem marcadores sobre a arte)
-  const confirmed = items.filter(([, v]) => v);
-  if (confirmed.length) { const hm = $("#heroMeta"); hm.innerHTML = confirmed.map(([k, v]) => `<li>${icons[k]}${esc(v)}</li>`).join(""); hm.hidden = false; }
 })();
 
 /* ---------- especialistas / programação / faq ---------- */
@@ -103,8 +101,8 @@ $("#formTitle").textContent = COPY.formTitle[mode];
         <p class="person__role">${esc([s.role, s.organization].filter(Boolean).join(", "))}</p>
         ${s.topic ? `<p class="card__text" style="margin-top:var(--space-2)">${esc(s.topic)}</p>` : ""}</div>
       </li>`).join("");
-    $("#especialistas").hidden = false;
-    $$('[data-nav="speakers"]').forEach(el => el.hidden = false);
+    $("#speakersLead").hidden = true;
+    $("#esp-title").textContent = "Conheça quem vai conduzir essa conversa.";
   }
   const ag = (CONFIG.agenda || []).filter(a => a && a.title);
   if (ag.length) {
@@ -147,7 +145,7 @@ $("#formTitle").textContent = COPY.formTitle[mode];
 
   const note = $("#privacyNote");
   if (CONFIG.privacyUrl) {
-    note.innerHTML = `Usaremos seus dados para a gestão da sua participação no MIGSUMMIT, conforme a <a href="${esc(CONFIG.privacyUrl)}">Política de Privacidade</a>.`;
+    note.innerHTML = `Usaremos seus dados para a gestão da sua participação no MIGSummit, conforme a <a href="${esc(CONFIG.privacyUrl)}">Política de Privacidade</a>.`;
   } else if (CONFIG.reviewMode) {
     note.innerHTML = pending("privacy");
   } else { note.hidden = true; }
@@ -293,7 +291,7 @@ if (matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").mat
   if (!c || !c.start || !c.end) return;
   const fmt = d => new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
-    + "&text=" + encodeURIComponent("MIGSUMMIT | IA aplicada ao ambiente SAP")
+    + "&text=" + encodeURIComponent("MIGSummit | IA aplicada ao ambiente SAP")
     + "&dates=" + fmt(c.start) + "/" + fmt(c.end)
     + (CONFIG.venue ? "&location=" + encodeURIComponent(CONFIG.venue) : "")
     + "&details=" + encodeURIComponent(location.origin + location.pathname);
@@ -302,9 +300,34 @@ if (matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").mat
   $("#eventMeta").appendChild(li);
   li.querySelector("a").addEventListener("click", () => track("cta_click", { cta_location: "calendar" }));
   if (CONFIG.reviewMode) return;
-  const ld = { "@context":"https://schema.org", "@type":"Event", name:"MIGSUMMIT", startDate:c.start, endDate:c.end,
+  const ld = { "@context":"https://schema.org", "@type":"Event", name:"MIGSummit", startDate:c.start, endDate:c.end,
     eventAttendanceMode: CONFIG.eventFormat === "online" ? "https://schema.org/OnlineEventAttendanceMode" : CONFIG.eventFormat === "híbrido" ? "https://schema.org/MixedEventAttendanceMode" : "https://schema.org/OfflineEventAttendanceMode",
     organizer:{ "@type":"Organization", name:"MIGNOW" }, description: document.querySelector('meta[name="description"]').content };
   if (CONFIG.venue) ld.location = CONFIG.eventFormat === "online" ? { "@type":"VirtualLocation", url: CONFIG.venue } : { "@type":"Place", name: CONFIG.venue };
   const sc = document.createElement("script"); sc.type = "application/ld+json"; sc.textContent = JSON.stringify(ld); document.head.appendChild(sc);
+})();
+
+/* ---------- faixa do evento: data, horário e contagem regressiva ---------- */
+(function eventBar(){
+  if (CONFIG.eventDate) {
+    try { $("#ebDate").textContent = new Date(CONFIG.eventDate + "T12:00:00").toLocaleDateString("pt-BR", { day:"numeric", month:"long", year:"numeric" }); } catch(e){}
+  }
+  if (CONFIG.eventTime) $("#ebTime").textContent = CONFIG.eventTime;
+  const start = CONFIG.calendar && CONFIG.calendar.start ? new Date(CONFIG.calendar.start) : null;
+  const end = CONFIG.calendar && CONFIG.calendar.end ? new Date(CONFIG.calendar.end) : null;
+  const box = $("#countdown");
+  if (!start) { box.hidden = true; return; }
+  const update = () => {
+    const now = new Date();
+    // dias de calendário no horário de Brasília (UTC-3)
+    const dayBR = d => Math.floor((d.getTime() - 3 * 3600e3) / 864e5);
+    const days = dayBR(start) - dayBR(now);
+    if (end && now > end) { box.innerHTML = '<span class="eventbar__count-label">Evento realizado</span>'; return; }
+    if (days <= 0) { box.innerHTML = '<strong>É hoje</strong>'; return; }
+    $("#cdNum").textContent = days;
+    $("#cdUnit").textContent = days === 1 ? "dia" : "dias";
+    box.querySelector(".eventbar__count-label").textContent = days === 1 ? "Falta" : "Faltam";
+  };
+  update();
+  setInterval(update, 60 * 60 * 1000);
 })();

@@ -519,3 +519,42 @@ a{ color:inherit; }
   .signup-top .lead{ display:none; }
   .signup-top__info{ gap:var(--space-5); }
 }
+
+/* --- abertura mobile compacta: logo e frase sobre o chão do KV, data e contagem no banner --- */
+.kv__chips{ display:none; }
+@media (max-width:767px){
+  .kv__img{ -webkit-mask-image:linear-gradient(to bottom, #000 55%, transparent 96%); mask-image:linear-gradient(to bottom, #000 55%, transparent 96%); }
+  .kv__copy{ margin-top:calc(-1 * clamp(8rem, 40vw, 11rem)); padding-bottom:calc(var(--space-12) + var(--space-2)); gap:var(--space-4); }
+  .kv__logo{ width:min(200px, 56vw); }
+  .kv__tagline{ font-size:clamp(.875rem, 4vw, 1.0625rem); letter-spacing:.28em; line-height:1.55; }
+  .hero__title{ font-size:var(--text-body-xs); line-height:1.6; color:rgba(255,255,255,.75); }
+  .kv__chips{ display:flex; flex-wrap:wrap; gap:var(--space-2); margin:var(--space-1) 0 0; padding:0; list-style:none; }
+  .kv__chips li{ display:inline-flex; align-items:center; gap:var(--space-2); height:2.25rem; padding-inline:var(--space-3); border-radius:var(--radius-full); background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); font-size:var(--text-body-xs); font-weight:500; color:var(--color-white); }
+  .kv__chips svg{ width:1rem; height:1rem; color:var(--color-violet-300); }
+  .kv__chips strong{ font-size:1rem; background:linear-gradient(90deg, var(--color-violet-300), var(--color-blue)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .kv__copy .btn-pill{ width:100%; }
+  /* formulário logo após o banner; o bloco de título/data/contagem repetido sai no celular */
+  .signup-top{ padding-top:var(--space-6); }
+  .signup-top__info{ display:none; }
+}
+@media (max-width:767px){
+  .kv__img{ aspect-ratio:680/860; object-position:50% 0; }
+  .kv__chips{ flex-wrap:nowrap; gap:var(--space-1-5, .375rem); }
+  .kv__chips li{ height:2.125rem; padding-inline:.625rem; font-size:.8125rem; gap:.375rem; white-space:nowrap; }
+}
+@media (max-width:370px){ .kv__chips{ flex-wrap:wrap; } }
+/* mobile: banner centralizado, como um pôster */
+@media (max-width:767px){
+  .kv__img{ aspect-ratio:680/760; object-position:50% 8%; }
+  .kv__copy{ align-items:center; text-align:center; padding-inline:var(--space-5); margin-top:calc(-1 * clamp(6rem, 30vw, 8.5rem)); }
+  .kv__logo{ margin-left:0; width:min(210px, 58vw); }
+  .kv__tagline{ text-align:center; padding-left:.28em; }
+  .hero__title{ max-width:34ch; text-wrap:balance; }
+  .kv__chips{ justify-content:center; }
+  .signup-top .panel__head{ text-align:center; align-items:center; }
+}
+@media (max-width:767px){
+  .kv__copy{ margin-top:calc(-1 * clamp(2.5rem, 13vw, 3.75rem)); }
+  .kv__img{ -webkit-mask-image:linear-gradient(to bottom, #000 70%, transparent 100%); mask-image:linear-gradient(to bottom, #000 70%, transparent 100%); }
+}
+@media (max-width:767px){ .kv__img{ aspect-ratio:680/680; object-position:50% 32%; } }

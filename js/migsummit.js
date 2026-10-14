@@ -259,7 +259,7 @@ form.addEventListener("submit", async e => {
 
 /* ---------- barra de CTA fixa no mobile ---------- */
 (function stickyCta(){
-  const bar = $("#stickyCta"), heroCta = $('[data-cta="hero"]'), signup = $("#inscricao");
+  const bar = $("#stickyCta"), heroCta = $(".hero"), signup = $("#inscricao");
   let heroVisible = true, signupVisible = false;
   const update = () => {
     const show = !heroVisible && !signupVisible;
@@ -317,17 +317,20 @@ if (matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").mat
   const start = CONFIG.calendar && CONFIG.calendar.start ? new Date(CONFIG.calendar.start) : null;
   const end = CONFIG.calendar && CONFIG.calendar.end ? new Date(CONFIG.calendar.end) : null;
   const box = $("#countdown");
-  if (!start) { box.hidden = true; return; }
+  if (!start) { box.hidden = true; $$("[data-countdown]").forEach(el => el.hidden = true); return; }
   const update = () => {
     const now = new Date();
     // dias de calendário no horário de Brasília (UTC-3)
     const dayBR = d => Math.floor((d.getTime() - 3 * 3600e3) / 864e5);
     const days = dayBR(start) - dayBR(now);
-    if (end && now > end) { box.innerHTML = '<span class="eventbar__count-label">Evento realizado</span>'; return; }
-    if (days <= 0) { box.innerHTML = '<strong>É hoje</strong>'; return; }
+    if (end && now > end) { box.innerHTML = '<span class="eventbar__count-label">Evento realizado</span>'; $$("[data-countdown]").forEach(el => el.hidden = true); return; }
+    if (days <= 0) { box.innerHTML = '<strong>É hoje</strong>'; $$("[data-countdown]").forEach(el => el.innerHTML = '<strong>É hoje</strong>'); return; }
     $("#cdNum").textContent = days;
     $("#cdUnit").textContent = days === 1 ? "dia" : "dias";
     box.querySelector(".eventbar__count-label").textContent = days === 1 ? "Falta" : "Faltam";
+    $$("[data-cd-num]").forEach(el => el.textContent = days);
+    $$("[data-cd-unit]").forEach(el => el.textContent = days === 1 ? "dia" : "dias");
+    $$("[data-cd-label]").forEach(el => el.textContent = days === 1 ? "Falta" : "Faltam");
   };
   update();
   setInterval(update, 60 * 60 * 1000);

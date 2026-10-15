@@ -47,3 +47,6 @@ Cole o conteúdo de index.html num template de página do Design Manager e inclu
 - Palestrantes (hoje o bloco mostra "Palestrantes em breve") e programação.
 - Logos MIGSummit e MIGNOW em vetor (os atuais foram extraídos do KV).
 - Domínio, analytics e favicon.
+
+## Créditos
+- Mockup do MacBook Pro: pacote html5-device-mockups (licença MIT), a partir do mockup vetorial da Designbolts.

@@ -335,3 +335,15 @@ if (matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").mat
   update();
   setInterval(update, 60 * 60 * 1000);
 })();
+
+/* ---------- vídeo do MacBook: só toca quando visível ---------- */
+(function macVideo(){
+  const v = document.querySelector(".mac__video");
+  if (!v) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) { v.controls = true; return; }
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { v.preload = "auto"; const p = v.play(); if (p) p.catch(() => {}); }
+    else v.pause();
+  }, { threshold: .25 }).observe(v);
+})();
